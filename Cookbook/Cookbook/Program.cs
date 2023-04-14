@@ -10,9 +10,10 @@ while (true)
     {
         Console.Write("Add name of the meal: ");
         var newMealName = Console.ReadLine();
-        var newMeal = new Meal(newMealName);
+        var newMeal = new MealInFile(newMealName);
         Console.Write("How long do you prepare this meal in minutes: ");
         var newMealTime = Console.ReadLine();
+        newMeal.AddFileAsNameOfMeal();
         try
         {
             newMeal.AddTimeToPrepareTheMeal(newMealTime);

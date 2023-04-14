@@ -2,7 +2,6 @@
 {
     public class Meal
     {
-        private List<int> grades = new List<int>();
         public Meal(string name)
         {
             this.Name = name;
@@ -16,36 +15,16 @@
         {
             if (int.TryParse(time, out var result))
             {
-                this.Time = result;
+                AddTimeToPrepareTheMeal(result);
             }
             else
             {
                 throw new Exception("Wrong time format, try again");
             }
         }
-
-        public void AddRateOfTheMeal(string grade)
+        public void AddTimeToPrepareTheMeal(int time)
         {
-            if (int.TryParse (grade, out var result))
-            {
-                AddRateOfTheMeal(result);
-            }
-            else
-            {
-                throw new Exception("This is not integer");
-            }
-        }
-
-        public void AddRateOfTheMeal(int grade)
-        {
-            if (grade > 0 && grade <= 10)
-            {
-                grades.Add(grade);
-            }
-            else
-            {
-                throw new Exception("Wrong range of grades");
-            }
+            this.Time = time;
         }
     }
 }
