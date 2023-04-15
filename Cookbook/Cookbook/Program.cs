@@ -2,47 +2,91 @@
 
 Console.WriteLine("Hello in my Cookbook program!!!");
 
-while (true)
+var programActive = true;
+while (programActive)
 {
-    Console.WriteLine("Would you like to give a new dish (Y/N): ");
+    Console.WriteLine("What do you want? (S)-show statistic, (A)-add new meal, (Q)-quit the program, (L)-list of meals");
     var input = Console.ReadLine();
-    if (input == "y" || input == "Y")
+    switch (input)
     {
-        Console.Write("Add name of the meal: ");
-        var newMealName = Console.ReadLine();
-        var newMeal = new MealInFile(newMealName);
-        Console.Write("How long do you prepare this meal in minutes: ");
-        var newMealTime = Console.ReadLine();
-        newMeal.AddFileAsNameOfMeal();
-        try
-        {
-            newMeal.AddTimeToPrepareTheMeal(newMealTime);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Exception catched: {e.Message}");
-            continue;
-        }
-        Console.Write("How would you rate this meal (integer from 0 to 10): ");
-        var newRate = Console.ReadLine();
-        try
-        {
-            newMeal.AddRateOfTheMeal(newRate);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Exception catched {e.Message}");
-            continue;
-        }
+        case "A":
+        case "a":
+            Console.Write("Add name of the meal: ");
+            var newMealName = Console.ReadLine();
+            var newMeal = new MealInFile(newMealName);
+
+            newMeal.AddNewMeal += AddNewMealName;
+            void AddNewMealName(object sender, EventArgs args)
+            {
+                Console.WriteLine("You added new meal");
+            }
+
+            try
+            {
+                newMeal.AddFileAsNameOfMeal();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.Write("How would you rate this meal (integer from 0 to 10): ");
+            var newRate = Console.ReadLine();
+
+            newMeal.AddNewRate += AddNewRateOfMeal;
+            void AddNewRateOfMeal(object sender, EventArgs args)
+            {
+                Console.WriteLine("You added new rate for this meal");
+            }
+
+            try
+            {
+                newMeal.AddRateOfTheMeal(newRate);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Exception catched: {e.Message}");
+                continue;
+            }
+            break;
+        case "S":
+        case "s":
+            Console.Write("Which meal statistic you want see: ");
+            var newStatisticName = Console.ReadLine();
+            var newStatistic = new MealInFile(newStatisticName);
+            try
+            {
+                Console.WriteLine($"Średnia ocena: {newStatistic.GetStatistic().averangeRate}");
+            }
+            catch (Exception e1)
+            {
+                Console.WriteLine(e1.Message);
+            }
+            break;
+        case "L":
+        case "l":
+            var newList = new MealInFile();
+            try
+            {
+                var newListOfNames = newList.ReadMenuFileToLines("List_of_meals.txt");
+                Console.WriteLine($"Currently you have {newListOfNames.Count} meals in list");
+                foreach (var line in newListOfNames)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }        
+            break;
+        case "Q":
+        case "q":
+            Console.WriteLine("You closed my program");
+            programActive = false;
+            break;
+        default: 
+            Console.WriteLine("Wrong char, please try again");
+            break;
     }
-    else if (input == "n" || input == "N")
-    {
-        Console.WriteLine("You have finished the program.");
-        break;
-    }
-    else
-    {
-        Console.WriteLine("Wrong char please try again");
-        continue;
-    }
+    
 }
