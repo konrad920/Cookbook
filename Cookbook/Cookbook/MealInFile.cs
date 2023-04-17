@@ -113,8 +113,7 @@ namespace Cookbook
             }
             return rates;
         }
-
-        private Statistic CountStatistic(List<int> rates)
+        public Statistic CountStatistic(List<int> rates)
         {
             var statistic = new Statistic();
             foreach (var rate in rates)

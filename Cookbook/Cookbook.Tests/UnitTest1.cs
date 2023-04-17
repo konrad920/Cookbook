@@ -3,17 +3,19 @@ namespace Cookbook.Tests
     public class Tests
     {
         [Test]
-        public void GetNewMealThenCreateNewFile()
+        public void GetNewRateThenReturnCorrectAverange()
         {
             //arrange
             var nameOfMeal = "Spagethi";
-            var newMeal = new MealInFile(nameOfMeal);
+            var newMeal = new MealInMemory(nameOfMeal);
 
             //act
-            newMeal.AddFileAsNameOfMeal();
+            newMeal.AddRateOfTheMeal(5);
+            newMeal.AddRateOfTheMeal("7");
+            newMeal.GetStatistic();
 
             //assert
-            Assert.IsTrue(File.Exists(nameOfMeal));
+            Assert.AreEqual(6f, newMeal.GetStatistic().averangeRate);
         }
     }
 }
