@@ -4,11 +4,9 @@ namespace Cookbook
 {
     public class MealInFile : MealBase
     {
-        public override event AddNewMealName AddNewMeal;
+        public event AddNewMealName AddNewMeal;
 
         public override event AddNewRateOfMeal AddNewRate;
-
-        public List<string> linesFromFile = new List<string>();
 
         private const string fileMealNames = "List_of_meals.txt";
         public MealInFile(string name)
@@ -19,9 +17,8 @@ namespace Cookbook
         {
         }
 
-        public override void AddFileAsNameOfMeal()
+        public void AddFileAsNameOfMeal()
         {
-            ReadMenuFileToLines();
             if (File.Exists($"{this.Name}.txt"))
             {
                 throw new Exception("File is already exist");
@@ -32,7 +29,6 @@ namespace Cookbook
                 {
                     AddNewMeal(this, new EventArgs());
                     var statistic = new Statistic();
-                    statistic.AddMeal(1);
                 }
 
                 using (var writer = File.AppendText(fileMealNames))
@@ -42,24 +38,9 @@ namespace Cookbook
             }
         }
 
-        public override void ReadMenuFileToLines()
+        public override void AddNextRateOfMeal(string rate)
         {
-            if (File.Exists(fileMealNames))
-            {
-                using (var reader = File.OpenText(fileMealNames))
-                {
-                    var line = reader.ReadLine();
-                    while (line != null)
-                    {
-                        this.linesFromFile.Add(line);
-                        line = reader.ReadLine();
-                    }
-                }
-            }
-            else
-            {
-                this.linesFromFile = null;
-            }
+            AddRateOfTheMeal(rate);
         }
 
         public override void AddRateOfTheMeal(string grade)
@@ -101,7 +82,6 @@ namespace Cookbook
                     var line = reader.ReadLine();
                     while (line != null)
                     {
-                        this.linesFromFile.Add(line);
                         rates.Add(int.Parse(line));
                         line = reader.ReadLine();
                     }
@@ -126,12 +106,6 @@ namespace Cookbook
         {
             var ratesFromFile = ReadMealFile($"{this.Name}.txt");
             var statisticfromFile = CountStatistic(ratesFromFile);
-            using (var writer = File.CreateText($"{this.Name}-Statistic.txt"))
-            {
-                writer.WriteLine($"Ilosc ocen dla, {this.Name} to: {statisticfromFile.countRates}");
-                writer.WriteLine($"Suma ocen dla, {this.Name} to: {statisticfromFile.sumRates}");
-                writer.WriteLine($"Średnia ocena dla, {this.Name} to: {statisticfromFile.averangeRate}");
-            }
             return statisticfromFile;
         }
     }

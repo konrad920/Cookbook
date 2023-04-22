@@ -12,10 +12,11 @@ namespace Cookbook.Tests
             //act
             newMeal.AddRateOfTheMeal(5);
             newMeal.AddRateOfTheMeal("7");
+            newMeal.AddNextRateOfMeal("6");
             newMeal.GetStatistic();
 
             //assert
-            Assert.AreEqual(6f, newMeal.GetStatistic().averangeRate);
+            Assert.AreEqual(6, newMeal.GetStatistic().AverangeRate);
         }
     }
 }

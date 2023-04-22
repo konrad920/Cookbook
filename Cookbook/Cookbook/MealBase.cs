@@ -6,8 +6,6 @@
 
         public delegate void AddNewRateOfMeal(object sender, EventArgs args);
 
-        public abstract event AddNewMealName AddNewMeal;
-
         public abstract event AddNewRateOfMeal AddNewRate;
 
         public MealBase(string name)
@@ -20,15 +18,13 @@
 
         public string Name { get; private set; }
 
-        public abstract void AddFileAsNameOfMeal();
-
         public abstract void AddRateOfTheMeal(string grade);
 
         public abstract void AddRateOfTheMeal(int grade);
 
-        public abstract Statistic GetStatistic();
+        public abstract void AddNextRateOfMeal(string rate);
 
-        public abstract void ReadMenuFileToLines();
+        public abstract Statistic GetStatistic();
 
         public List<string> ReadMenuFileToLines(string file)
         {

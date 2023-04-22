@@ -2,22 +2,18 @@
 {
     public class MealInMemory : MealBase
     {
-        private List<string> meals = new List<string>();
-
         public List<int> rates = new List<int>();
         public MealInMemory(string name) 
              : base(name)
         {
         }
 
-        public override event AddNewMealName AddNewMeal;
         public override event AddNewRateOfMeal AddNewRate;
 
-        public override void AddFileAsNameOfMeal()
+        public override void AddNextRateOfMeal(string rate)
         {
-            meals.Add(this.Name);
+            AddRateOfTheMeal(rate);
         }
-
         public override void AddRateOfTheMeal(string grade)
         {
             if (int.TryParse(grade, out var result))
@@ -35,6 +31,7 @@
             if (grade > 0 && grade <= 10)
             {
                 this.rates.Add(grade);
+                AddNewRate(this, new EventArgs());
             }
             else
             {
@@ -50,14 +47,6 @@
                 statistic.AddRate(rate);
             }
             return statistic;
-        }
-
-        public override void ReadMenuFileToLines()
-        {
-            foreach (var meal in meals)
-            {
-                Console.WriteLine(meal);
-            }
         }
     }
 }

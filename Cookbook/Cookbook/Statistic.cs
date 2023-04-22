@@ -4,21 +4,18 @@
     {
         public Statistic()
         {
-            this.countMeals = 0;
-            this.countRates = 0;
-            this.sumRates = 0;
+            this.CountRates = 0;
+            this.SumRates = 0;
         }
-
-        public int countMeals { get; private set; }
-        public int countRates {  get; private set; }
-        public int sumRates { get; private set; }
-        public float averangeRate 
+        public int CountRates {  get; private set; }
+        public int SumRates { get; private set; }
+        public float AverangeRate 
         {
             get
             {
-                if (this.countRates != 0)
+                if (this.CountRates != 0)
                 {
-                    return this.sumRates / this.countRates;
+                    return this.SumRates / this.CountRates;
                 }
                 else
                 {
@@ -29,13 +26,8 @@
 
         public void AddRate(int rate)
         {
-            this.countRates++;
-            this.sumRates += rate;
-        }
-
-        public void AddMeal(int meal)
-        {
-            this.countMeals++;
+            this.CountRates++;
+            this.SumRates += rate;
         }
     }
 }

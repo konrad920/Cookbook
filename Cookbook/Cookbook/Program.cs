@@ -5,12 +5,12 @@ Console.WriteLine("Hello in my Cookbook program!!!");
 var programActive = true;
 while (programActive)
 {
-    Console.WriteLine("What do you want? (S)-show statistic, (A)-add new meal, (Q)-quit the program, (L)-list of meals");
+    Console.WriteLine("What do you want? (S)-show statistic, (A)-add rate of meal, (N)-add new meal, (Q)-quit the program, (L)-list of meals");
     var input = Console.ReadLine();
     switch (input)
     {
-        case "A":
-        case "a":
+        case "N":
+        case "n":
             Console.Write("Add name of the meal: ");
             var newMealName = Console.ReadLine();
             var newMeal = new MealInFile(newMealName);
@@ -48,6 +48,37 @@ while (programActive)
                 continue;
             }
             break;
+        case "A":
+        case "a":
+            Console.Write("Which meal do you want to rate: ");
+            var mealToRate = Console.ReadLine();
+            var meal = new MealInFile(mealToRate);
+            if (File.Exists($"{mealToRate}.txt"))
+            {
+                Console.WriteLine("How would you rate this meal (integer from 0 to 10):");
+                var nextRate = Console.ReadLine();
+
+                meal.AddNewRate += AddNewRateOfMeal;
+                void AddNextRateOfMeal(object sender, EventArgs args)
+                {
+                    Console.WriteLine("You added next rate for this meal");
+                }
+
+                try
+                {
+                    meal.AddNextRateOfMeal(nextRate);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    continue;
+                }
+            }
+            else
+            {
+                Console.WriteLine("File does not exist");
+            }
+            break;
         case "S":
         case "s":
             Console.Write("Which meal statistic you want see: ");
@@ -55,7 +86,8 @@ while (programActive)
             var newStatistic = new MealInFile(newStatisticName);
             try
             {
-                Console.WriteLine($"Średnia ocena: {newStatistic.GetStatistic().averangeRate}");
+                Console.WriteLine($"Średnia ocena: {newStatistic.GetStatistic().AverangeRate}");
+                Console.WriteLine($"Ilość ocen: {newStatistic.GetStatistic().CountRates}");
             }
             catch (Exception e1)
             {
@@ -77,7 +109,7 @@ while (programActive)
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }        
+            }
             break;
         case "Q":
         case "q":

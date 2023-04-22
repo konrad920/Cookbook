@@ -6,19 +6,15 @@ namespace Cookbook
     {
         string Name { get; }
 
-        void AddFileAsNameOfMeal();
-
-        void ReadMenuFileToLines();
-
         List<string> ReadMenuFileToLines(string file);
 
         void AddRateOfTheMeal(string grade);
 
         void AddRateOfTheMeal(int grade);
 
-        Statistic GetStatistic();
+        void AddNextRateOfMeal(string rate);
 
-        event AddNewMealName AddNewMeal;
+        Statistic GetStatistic();
         
         event AddNewRateOfMeal AddNewRate;
     }
