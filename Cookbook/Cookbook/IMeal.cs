@@ -12,8 +12,6 @@ namespace Cookbook
 
         void AddRateOfTheMeal(int grade);
 
-        void AddNextRateOfMeal(string rate);
-
         Statistic GetStatistic();
         
         event AddNewRateOfMeal AddNewRate;

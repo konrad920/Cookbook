@@ -22,8 +22,6 @@
 
         public abstract void AddRateOfTheMeal(int grade);
 
-        public abstract void AddNextRateOfMeal(string rate);
-
         public abstract Statistic GetStatistic();
 
         public List<string> ReadMenuFileToLines(string file)

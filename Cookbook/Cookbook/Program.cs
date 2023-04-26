@@ -66,7 +66,7 @@ while (programActive)
 
                 try
                 {
-                    meal.AddNextRateOfMeal(nextRate);
+                    meal.AddRateOfTheMeal(nextRate);
                 }
                 catch(Exception ex)
                 {
@@ -86,7 +86,7 @@ while (programActive)
             var newStatistic = new MealInFile(newStatisticName);
             try
             {
-                Console.WriteLine($"Średnia ocena: {newStatistic.GetStatistic().AverangeRate}");
+                Console.WriteLine($"Średnia ocena: {newStatistic.GetStatistic().AverangeRate:N2}");
                 Console.WriteLine($"Ilość ocen: {newStatistic.GetStatistic().CountRates}");
             }
             catch (Exception e1)

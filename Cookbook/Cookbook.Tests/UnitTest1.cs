@@ -12,7 +12,7 @@ namespace Cookbook.Tests
             //act
             newMeal.AddRateOfTheMeal(5);
             newMeal.AddRateOfTheMeal("7");
-            newMeal.AddNextRateOfMeal("6");
+            newMeal.AddRateOfTheMeal("6");
             newMeal.GetStatistic();
 
             //assert

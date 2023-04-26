@@ -27,7 +27,10 @@ namespace Cookbook
             {
                 using (var writer = File.Create($"{this.Name}.txt"))
                 {
-                    AddNewMeal(this, new EventArgs());
+                    if(AddNewMeal != null)
+                    {
+                        AddNewMeal(this, new EventArgs()); 
+                    }
                     var statistic = new Statistic();
                 }
 
@@ -36,11 +39,6 @@ namespace Cookbook
                     writer.WriteLine($"{this.Name}");
                 }
             }
-        }
-
-        public override void AddNextRateOfMeal(string rate)
-        {
-            AddRateOfTheMeal(rate);
         }
 
         public override void AddRateOfTheMeal(string grade)
@@ -64,7 +62,10 @@ namespace Cookbook
                 {
                     writer.WriteLine(grade);
                 }
-                AddNewRate(this, new EventArgs());
+                if(AddNewRate != null)
+                {
+                    AddNewRate(this, new EventArgs());
+                }
             }
             else
             {

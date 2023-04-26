@@ -10,10 +10,6 @@
 
         public override event AddNewRateOfMeal AddNewRate;
 
-        public override void AddNextRateOfMeal(string rate)
-        {
-            AddRateOfTheMeal(rate);
-        }
         public override void AddRateOfTheMeal(string grade)
         {
             if (int.TryParse(grade, out var result))
@@ -31,7 +27,10 @@
             if (grade > 0 && grade <= 10)
             {
                 this.rates.Add(grade);
-                AddNewRate(this, new EventArgs());
+                if(AddNewRate != null)
+                {
+                    AddNewRate(this, new EventArgs());
+                }
             }
             else
             {

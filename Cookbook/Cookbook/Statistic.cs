@@ -7,8 +7,8 @@
             this.CountRates = 0;
             this.SumRates = 0;
         }
-        public int CountRates {  get; private set; }
-        public int SumRates { get; private set; }
+        public float CountRates {  get; private set; }
+        public float SumRates { get; private set; }
         public float AverangeRate 
         {
             get
